@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QCM Golf - Graminées</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background-color: #f0f8ff; }
+        h1 { color: #2c3e50; }
+        .container { background: white; padding: 20px; border-radius: 10px; max-width: 800px; margin: auto; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        .question { margin-bottom: 20px; }
+        button { background-color: #27ae60; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background-color: #219150; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>QCM Golf - Graminées</h1>
+        <div id="qcm"></div>
+        <button onclick="validerQCM()">Valider mes réponses</button>
+        <div id="resultat"></div>
+    </div>
+
+    <script>
+        const questions = [
+            { question: "Quelle graminée est la plus utilisée pour les greens en climat tempéré ?", reponses: ["Agrostis stolonifera", "Poa annua", "Lolium perenne", "Festuca rubra", "Poa pratensis"], correcte: 0 },
+            { question: "Quelle graminée tolère bien le piétinement pour les fairways ?", reponses: ["Poa pratensis", "Agrostis capillaris", "Festuca rubra", "Lolium perenne", "Cynodon dactylon"], correcte: 3 },
+            { question: "Quelle espèce est souvent utilisée pour les départs grâce à sa résistance ?", reponses: ["Poa annua", "Poa pratensis", "Lolium perenne", "Festuca rubra", "Agrostis stolonifera"], correcte: 2 },
+            { question: "Quelle graminée est connue pour sa finesse et sa densité ?", reponses: ["Agrostis stolonifera", "Lolium perenne", "Poa pratensis", "Festuca arundinacea", "Cynodon dactylon"], correcte: 0 },
+            { question: "Quelle espèce est la plus utilisée en mélange pour fairways secs ?", reponses: ["Festuca rubra", "Agrostis stolonifera", "Poa annua", "Poa pratensis", "Lolium perenne"], correcte: 0 }
+        ];
+
+        // Mélanger un tableau
+        function melanger(tableau) {
+            for (let i = tableau.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [tableau[i], tableau[j]] = [tableau[j], tableau[i]];
+            }
+        }
+
+        const nom = localStorage.getItem('nom');
+        const prenom = localStorage.getItem('prenom');
+
+        melanger(questions);
+        questions.forEach(q => melanger(q.reponses));
+
+        const qcmContainer = document.getElementById('qcm');
+
+        questions.forEach((q, index) => {
+            const div = document.createElement('div');
+            div.classList.add('question');
+
+            let html = `<p><strong>Q${index + 1} : ${q.question}</strong></p>`;
+
+            q.reponses.forEach((rep, idx) => {
+                html += `<input type="radio" name="q${index}" value="${rep}" required> ${rep}<br>`;
+            });
+
+            div.innerHTML = html;
+            qcmContainer.appendChild(div);
+        });
+
+        function validerQCM() {
+            const reponsesUtilisateur = [];
+            questions.forEach((q, i) => {
+                const reponse = document.querySelector(`input[name='q${i}']:checked`);
+                reponsesUtilisateur.push(reponse ? reponse.value : null);
+            });
+
+            let score = 0;
+            questions.forEach((q, i) => {
+                if (q.reponses[q.correcte] === reponsesUtilisateur[i]) score++;
+            });
+
+            document.getElementById('resultat').innerHTML = `<h2>Bravo ${prenom} ${nom} !</h2><p>Vous avez obtenu un score de ${score} / ${questions.length}.</p>`;
+        }
+    </script>
+</body>
+</html>
