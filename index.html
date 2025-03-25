@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QCM Graminées - Golf</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background-color: #f4f4f4; }
+        h1 { color: #2c3e50; }
+        .question { margin-bottom: 20px; background: #fff; padding: 15px; border-radius: 10px; box-shadow: 0 0 5px rgba(0,0,0,0.1); }
+        button { background-color: #27ae60; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background-color: #219150; }
+        #result { margin-top: 20px; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<h1>QCM : Les graminées utilisées sur un parcours de golf</h1>
+
+<form id="qcmForm">
+    <div class="question">
+        <p>1. Quelle graminée est la plus couramment utilisée pour les greens de golf en climat tempéré ?</p>
+        <label><input type="radio" name="q1" value="0"> Fétuque élevée</label><br>
+        <label><input type="radio" name="q1" value="0"> Ray-grass anglais</label><br>
+        <label><input type="radio" name="q1" value="1"> Agrostide stolonifère</label><br>
+        <label><input type="radio" name="q1" value="0"> Pâturin des prés</label><br>
+        <label><input type="radio" name="q1" value="0"> Kikuyu</label>
+    </div>
+
+    <div class="question">
+        <p>2. Quelle graminée est la plus adaptée aux départs et fairways en climat méditerranéen ?</p>
+        <label><input type="radio" name="q2" value="0"> Ray-grass anglais</label><br>
+        <label><input type="radio" name="q2" value="1"> Kikuyu</label><br>
+        <label><input type="radio" name="q2" value="0"> Pâturin annuel</label><br>
+        <label><input type="radio" name="q2" value="0"> Agrostide capillaire</label><br>
+        <label><input type="radio" name="q2" value="0"> Fétuque rouge gazonnante</label>
+    </div>
+
+    <div class="question">
+        <p>3. Quelle espèce est utilisée sur les fairways pour sa capacité à s’autoréparer grâce à ses rhizomes ?</p>
+        <label><input type="radio" name="q3" value="0"> Ray-grass anglais</label><br>
+        <label><input type="radio" name="q3" value="1"> Pâturin des prés</label><br>
+        <label><input type="radio" name="q3" value="0"> Agrostide stolonifère</label><br>
+        <label><input type="radio" name="q3" value="0"> Fétuque élevée</label><br>
+        <label><input type="radio" name="q3" value="0"> Cynodon dactylon</label>
+    </div>
+
+    <div class="question">
+        <p>4. Quelle graminée est reconnue pour sa finesse de feuille et son esthétique sur les greens, mais exige un entretien méticuleux ?</p>
+        <label><input type="radio" name="q4" value="0"> Fétuque élevée</label><br>
+        <label><input type="radio" name="q4" value="0"> Agrostide stolonifère</label><br>
+        <label><input type="radio" name="q4" value="1"> Agrostide capillaire</label><br>
+        <label><input type="radio" name="q4" value="0"> Kikuyu</label><br>
+        <label><input type="radio" name="q4" value="0"> Ray-grass anglais</label>
+    </div>
+
+    <div class="question">
+        <p>5. Quelle graminée est souvent utilisée en sursemis pour sa croissance rapide ?</p>
+        <label><input type="radio" name="q5" value="0"> Pâturin des prés</label><br>
+        <label><input type="radio" name="q5" value="0"> Fétuque rouge traçante</label><br>
+        <label><input type="radio" name="q5" value="1"> Ray-grass anglais</label><br>
+        <label><input type="radio" name="q5" value="0"> Agrostide stolonifère</label><br>
+        <label><input type="radio" name="q5" value="0"> Cynodon dactylon</label>
+    </div>
+
+    <button type="button" onclick="calculerScore()">Voir mon score</button>
+</form>
+
+<p id="result"></p>
+
+<script>
+function calculerScore() {
+    let score = 0;
+    const form = document.forms["qcmForm"];
+    for (let i = 1; i <= 5; i++) {
+        const question = form["q" + i];
+        if (question.value === "1") {
+            score++;
+        }
+    }
+    document.getElementById("result").textContent = `Votre score est de ${score}/5`;
+}
+</script>
+
+</body>
+</html>
